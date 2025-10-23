@@ -44,6 +44,16 @@ app.get('/usuarios', (req, res) => {
   });
 });
 
+app.get('/login', express.json(), async function(req, res){
+  const { email, password } = req.body; 
+  const sql = 'SELECT id, tipo FROM usuarios WHERE email=? AND contraseña=?';
+  await connection.execute(sql, [email, password]).then(async result => {
+    console.log(result)
+    res.json(result);
+  })
+  .catch(err => res.status(500).send(err));
+});
+
 app.listen(3000, () => {
   console.log('Servidor activo en http://localhost:3000');
 });
