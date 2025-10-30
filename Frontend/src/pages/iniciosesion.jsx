@@ -30,19 +30,19 @@ function InicioSesion()
         e.preventDefault();
         if(!validar()) return;
 
-  /*      let res = await fetch('http://10.0.6.128:3031/login', {
+        let res = await fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({email: email, password: password}),
         });
         let data = await res.json();
-        if(typeof data.id === 'undefined')
+        if(data.length < 1)
         {
-            setError('Usuario Inexistente');
+            setError('Usuario Inexistente o Contraseña Incorrecta');
             return;
         }
-        localStorage.setItem('id', data.id);
-        localStorage.setItem('tipo', data.tipo);*/
+        localStorage.setItem('id', data[0].id);
+        localStorage.setItem('tipo', data[0].tipo);
         window.location.href = "/Inicio";
     }
 

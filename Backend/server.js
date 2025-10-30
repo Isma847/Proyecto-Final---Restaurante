@@ -33,25 +33,20 @@ connection.connect(err => {
   console.log('Conectado a MySQL');
 });
 
-app.get('/usuarios', (req, res) => {
-  connection.query('SELECT * FROM usuarios', (err, results) => {
-    if (err) {
-      console.error('Error en la consulta:', err);
-      res.status(500).send('Error al obtener usuarios');
-      return;
-    }
-    res.json(results);
-  });
+app.get('/usuarios', async function(req, res){
+  const sql = 'SELECT * FROM usuario';
+  const [result] = await connection.execute(sql);
+  console.log(result)
+  res.json(result);
 });
 
-app.get('/login', express.json(), async function(req, res){
+app.post('/login', express.json(), async function(req, res){
   const { email, password } = req.body; 
-  const sql = 'SELECT id, tipo FROM usuarios WHERE email=? AND contraseña=?';
-  await connection.execute(sql, [email, password]).then(async result => {
-    console.log(result)
-    res.json(result);
-  })
-  .catch(err => res.status(500).send(err));
+  console.log(email);
+  const sql = 'SELECT id, tipo FROM usuario WHERE email=? AND contraseña=?';
+  const [result] = await connection.execute(sql, [email, password]);
+  console.log(result);
+  res.json(result);
 });
 
 app.listen(3000, () => {
