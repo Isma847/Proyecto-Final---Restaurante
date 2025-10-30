@@ -1,0 +1,209 @@
+.reception-dashboard {
+  width: 100%;
+}
+
+.tables-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tables-section h4 {
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.table-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.table-card.libre {
+  border-left: 4px solid #27ae60;
+}
+
+.table-card.ocupada {
+  border-left: 4px solid #e74c3c;
+}
+
+.table-card h5 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.estado {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.pedido-id {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.btn-liberar {
+  background: #27ae60 !important;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.btn-ocupar {
+  background: #e74c3c !important;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.quick-actions {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.action-btn {
+  padding: 1rem !important;
+  font-size: 1rem !important;
+}
+
+.liberar-todas {
+  background: #27ae60 !important;
+}
+
+.nueva-reserva {
+  background: #667eea !important;
+}
+
+/* Reservas Styles */
+.reservas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.reserva-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.reserva-info h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.reserva-info p {
+  margin: 0.2rem 0;
+  color: #666;
+}
+
+.estado {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.estado.libre {
+  background: #d4edda;
+  color: #155724;
+}
+
+.estado.ocupada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Estado General Styles */
+.estado-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.estado-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.estado-card h4 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.estado-card.libre h4 {
+  color: #27ae60;
+}
+
+.estado-card.ocupada h4 {
+  color: #e74c3c;
+}
+
+.estado-card.reservas h4 {
+  color: #f39c12;
+}
+
+.estado-card.total h4 {
+  color: #667eea;
+}
+
+.mesas-detalle {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.mesas-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.mesa-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.mesa-item.libre {
+  background: #d4edda;
+  color: #155724;
+}
+
+.mesa-item.ocupada {
+  background: #f8d7da;
+  color: #721c24;
+}

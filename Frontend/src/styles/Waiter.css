@@ -1,0 +1,275 @@
+.take-order {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group select,
+.form-group input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.menu-section {
+  margin: 2rem 0;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.menu-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.menu-item-info h5 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.menu-item .price {
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 0.5rem;
+}
+
+.menu-item .description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.current-order {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.item-price {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-controls button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.remove-btn {
+  background: #e74c3c !important;
+  margin-left: 0.5rem;
+}
+
+.item-total {
+  font-weight: bold;
+  color: #333;
+}
+
+.order-summary {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #ddd;
+}
+
+.total {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #27ae60 !important;
+  font-size: 1.1rem;
+  padding: 1rem;
+}
+
+.submit-btn:disabled {
+  background: #95a5a6 !important;
+  cursor: not-allowed;
+}
+
+/* Order Status Styles */
+.orders-section {
+  margin-bottom: 2rem;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.order-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.order-card.pending {
+  border-left: 4px solid #f39c12;
+}
+
+.order-card.ready {
+  border-left: 4px solid #27ae60;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mesa {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.prioridad {
+  font-weight: bold;
+}
+
+.estado-listo {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.order-items {
+  margin-bottom: 1rem;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.entregar-btn {
+  background: #27ae60 !important;
+  padding: 0.5rem 1rem;
+}
+
+/* Payment Styles */
+.payment-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.mesas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.mesa-card {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mesa-card.selected {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.mesa-card h5 {
+  margin-bottom: 0.5rem;
+}
+
+.pago-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.pago-info {
+  margin-top: 1rem;
+}
+
+.total-pago {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.metodo-pago,
+.efectivo-section {
+  margin-bottom: 1.5rem;
+}
+
+.metodo-pago label,
+.efectivo-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.procesar-pago-btn {
+  width: 100%;
+  background: #27ae60 !important;
+  padding: 1rem;
+  font-size: 1.1rem;
+}

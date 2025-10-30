@@ -1,17 +1,27 @@
-import { useState } from 'react';
-import './App.css';
-import { Routes, Route, Link } from 'react-router-dom';
-import MainPage from './pages/mainpage';
-import InicioSesion from './pages/iniciosesion';
+import { useAuth } from './context/AuthContext.jsx'
+import './App.css'  // ← Ahora está en la raíz
+import { Routes, Route, Navigate } from 'react-router-dom'
+import MainPage from './pages/MainPage.jsx'
+import Login from './pages/Login.jsx'
 
-function App() 
-{
+function App() {
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return <div>Cargando...</div>
+  }
 
   return (
-    <div> 
-       <Routes>
-        <Route path="/" element={<InicioSesion />} />
-        <Route path="/Inicio" element={<MainPage />} />
+    <div className="app">
+      <Routes>
+        <Route 
+          path="/" 
+          element={user ? <Navigate to="/Inicio" /> : <Login />} 
+        />
+        <Route 
+          path="/Inicio" 
+          element={user ? <MainPage /> : <Navigate to="/" />} 
+        />
       </Routes>
     </div>
   )

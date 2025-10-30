@@ -1,14 +1,19 @@
-import { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import Dashboard from './Dashboard';
 
-function MainPage() 
-{
+function MainPage() {
+  const { user } = useAuth();
 
-  return (
-    <div> 
-       <p>Hola</p>
-    </div>
-  )
+  if (!user) {
+    return (
+      <div>
+        <p>No has iniciado sesión</p>
+      </div>
+    );
+  }
+
+  return <Dashboard />;
 }
 
-export default MainPage
+export default MainPage;
