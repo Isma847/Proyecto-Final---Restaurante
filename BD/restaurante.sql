@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2025 a las 02:09:40
+-- Tiempo de generación: 13-11-2025 a las 02:25:33
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -24,27 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mesa`
---
-
-CREATE TABLE `mesa` (
-  `id` int(11) NOT NULL,
-  `ocupada` tinyint(1) NOT NULL,
-  `idPedido` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `pedido`
 --
 
 CREATE TABLE `pedido` (
   `id` int(11) NOT NULL,
-  `idMesa` int(11) NOT NULL,
   `precioTotal` float NOT NULL,
-  `pedido` text NOT NULL
+  `pedido` text NOT NULL,
+  `mesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`id`, `precioTotal`, `pedido`, `mesa`) VALUES
+(5, 900, '[{\"cantidad\":1,\"idplatillo\":16,\"precioplatillo\":900,\"total\":900}]', 65);
 
 -- --------------------------------------------------------
 
@@ -94,8 +89,8 @@ INSERT INTO `platillo` (`id`, `nombre`, `precio`, `descripcion`) VALUES
 CREATE TABLE `reserva` (
   `id` int(11) NOT NULL,
   `aNombreDe` varchar(40) NOT NULL,
-  `idMesa` int(11) NOT NULL,
-  `horario` date NOT NULL
+  `horario` date NOT NULL,
+  `mesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -124,18 +119,10 @@ INSERT INTO `usuario` (`id`, `nombre`, `email`, `contraseña`, `tipo`) VALUES
 --
 
 --
--- Indices de la tabla `mesa`
---
-ALTER TABLE `mesa`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ID_PEDIDO` (`idPedido`);
-
---
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ID_MESA` (`idMesa`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `platillo`
@@ -147,8 +134,7 @@ ALTER TABLE `platillo`
 -- Indices de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ID_MESA1` (`idMesa`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuario`
@@ -161,16 +147,10 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `mesa`
---
-ALTER TABLE `mesa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `platillo`
@@ -189,28 +169,6 @@ ALTER TABLE `reserva`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `mesa`
---
-ALTER TABLE `mesa`
-  ADD CONSTRAINT `FK_ID_PEDIDO` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`id`);
-
---
--- Filtros para la tabla `pedido`
---
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `FK_ID_MESA` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`id`);
-
---
--- Filtros para la tabla `reserva`
---
-ALTER TABLE `reserva`
-  ADD CONSTRAINT `FK_ID_MESA1` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
