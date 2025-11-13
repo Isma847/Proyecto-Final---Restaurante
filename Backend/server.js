@@ -189,12 +189,13 @@ app.post('/completepedido', async function (req, res)
 
     pedidos.splice(index, 1);
 
-    const sql = 'INSERT INTO pedido (idMesa, precioTotal, pedido) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO pedido (mesa, precioTotal, pedido) VALUES (?, ?, ?)';
     await connection.execute(sql, [pedido.mesa, pedido.total, JSON.stringify(pedido.items)]);
     res.json({ ok: true, mensaje: 'Pedido completado y guardado en la base de datos' });
   } 
-  catch (err) 
+  catch(err) 
   {
+    console.log(err)
     res.status(500).json({ ok: false, error: 'Error al completar pedido' });
   }
 });
