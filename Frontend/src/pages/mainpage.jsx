@@ -73,7 +73,7 @@ function MainPage() {
     <div className="main-content inicio-page">
       <div className="content-wrapper">
         <div className="page-header">
-          <h1>El resto de la 5</h1>
+          <h1>El Resto de la 5</h1>
           <p className="subtitle">Pedidos Activos</p>
         </div>
 
