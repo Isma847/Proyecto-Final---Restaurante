@@ -25,6 +25,12 @@ function NuevoPedidoPage() {
       ...prev,
       { cantidad, idplatillo: plat.id, precioplatillo: plat.precio, nombre: plat.nombre }
     ]);
+    setIdPlatillo('');
+    setCantidad(1);
+  };
+
+  const eliminarItem = (index) => {
+    setItems(prev => prev.filter((_, idx) => idx !== index));
   };
 
   const total = items.reduce((sum, i) => sum + i.precioplatillo * i.cantidad, 0);
@@ -51,61 +57,100 @@ function NuevoPedidoPage() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Crear nuevo pedido</h2>
+    <div className="main-content">
+      <div className="content-wrapper">
+        <div className="nuevo-pedido-container">
+          <div className="form-card">
+            <h2>Tomar pedido</h2>
 
-      <div>
-        <label>Mesa: </label>
-        <input
-          type="number"
-          value={mesa}
-          onChange={e => setMesa(e.target.value)}
-          placeholder="N° de mesa"
-        />
+            <h3>Información del Pedido</h3>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="mesa">Mesa:</label>
+                <input
+                  id="mesa"
+                  type="number"
+                  value={mesa}
+                  onChange={e => setMesa(e.target.value)}
+                  placeholder="N° de mesa"
+                  min="1"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="prioridad">Prioridad:</label>
+                <select 
+                  id="prioridad"
+                  value={prioridad} 
+                  onChange={e => setPrioridad(Number(e.target.value))}
+                >
+                  <option value={1}>Normal</option>
+                  <option value={2}>Alta</option>
+                </select>
+              </div>
+            </div>
+
+            <h3>Agregar Productos</h3>
+            
+            <div className="agregar-item">
+              <select 
+                value={idPlatillo} 
+                onChange={e => setIdPlatillo(e.target.value)}
+              >
+                <option value="">Seleccionar platillo</option>
+                {platillos.map(p => (
+                  <option key={p.id} value={p.id}>
+                    {p.nombre} - ${p.precio}
+                  </option>
+                ))}
+              </select>
+
+              <input
+                type="number"
+                min={1}
+                value={cantidad}
+                onChange={e => setCantidad(Number(e.target.value))}
+              />
+
+              <button onClick={agregarItem}>Agregar</button>
+            </div>
+
+            {items.length > 0 && (
+              <div className="items-agregados">
+                <h4>Productos agregados</h4>
+                <ul>
+                  {items.map((i, idx) => (
+                    <li key={idx}>
+                      <span>
+                        <span>{i.nombre}</span>
+                        <span style={{fontSize: '0.9em', color: 'var(--dark-gray)', marginLeft: '0.5rem'}}>
+                          {i.cantidad}x ${i.precioplatillo}
+                        </span>
+                      </span>
+                      <div>
+                        <span>${i.cantidad * i.precioplatillo}</span>
+                        <button 
+                          onClick={() => eliminarItem(idx)}
+                          className="item-delete"
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <div className="resumen-pedido">
+            <h3>Total: ${total}</h3>
+            <button onClick={enviarPedido}>
+              Subir pedido
+            </button>
+          </div>
+        </div>
       </div>
-
-      <div>
-        <label>Prioridad: </label>
-        <select value={prioridad} onChange={e => setPrioridad(Number(e.target.value))}>
-          <option value={1}>Normal</option>
-          <option value={2}>Alta</option>
-        </select>
-      </div>
-
-      <h3>Agregar item</h3>
-      <div>
-        <select value={idPlatillo} onChange={e => setIdPlatillo(e.target.value)}>
-          <option value="">Seleccionar platillo</option>
-          {platillos.map(p => (
-            <option key={p.id} value={p.id}>
-              {p.nombre} - ${p.precio}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="number"
-          min={1}
-          value={cantidad}
-          onChange={e => setCantidad(Number(e.target.value))}
-          style={{ width: '60px', marginLeft: '10px' }}
-        />
-
-        <button onClick={agregarItem} style={{ marginLeft: '10px' }}>Agregar</button>
-      </div>
-
-      <h4>Items agregados:</h4>
-      <ul>
-        {items.map((i, idx) => (
-          <li key={idx}>
-            {i.nombre} — {i.cantidad} × ${i.precioplatillo} = ${i.cantidad * i.precioplatillo}
-          </li>
-        ))}
-      </ul>
-
-      <h3>Total: ${total}</h3>
-
-      <button onClick={enviarPedido} style={{ marginTop: '10px' }}>Enviar pedido</button>
     </div>
   );
 }

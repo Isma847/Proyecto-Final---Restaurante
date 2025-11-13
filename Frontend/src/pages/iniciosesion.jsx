@@ -47,15 +47,31 @@ function InicioSesion()
     }
 
     return (
-        <div> 
-            <form onSubmit={login}>
-                <h3>Iniciar Sesion</h3>
-                <input type='email' placeholder='Email' onChange={(e) => {setEmail(e.target.value)}} required/>
-                <br />
-                <input type='password' placeholder='Contraseña' onChange={(e) => {setPassword(e.target.value)}} required/>
-                <br />
-                <button type='submit'>Iniciar Sesion</button>
-                <p>{error}</p>
+        <div className="login-container"> 
+            <form onSubmit={login} className="login-card">
+                <h1>El resto de la 5</h1>
+                <p className="subtitle">- Personal -</p>
+                
+                <p className="form-section-title">Correo electrónico</p>
+                <input 
+                    type='email' 
+                    placeholder='Ingresa tu correo electrónico' 
+                    value={email}
+                    onChange={(e) => {setEmail(e.target.value)}} 
+                    required
+                />
+                
+                <p className="form-section-title">Contraseña</p>
+                <input 
+                    type='password' 
+                    placeholder='Ingresa tu contraseña' 
+                    value={password}
+                    onChange={(e) => {setPassword(e.target.value)}} 
+                    required
+                />
+                
+                <button type='submit'>Ingresar</button>
+                {error && <p className="error">{error}</p>}
             </form>
         </div>
     )

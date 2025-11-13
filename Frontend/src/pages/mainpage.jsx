@@ -59,55 +59,82 @@ function MainPage() {
     cargarPedidos();
   };
 
+  const getEstadoBadge = (enproceso, terminado) => {
+    if (enproceso === false && terminado === false) {
+      return <span className="estado-badge ocupada">Ocupada</span>;
+    } else if (enproceso === true && terminado === false) {
+      return <span className="estado-badge desocupada">Cocinando</span>;
+    } else if (enproceso === true && terminado === true) {
+      return <span className="estado-badge desocupada">Listo</span>;
+    }
+  };
+
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Pedidos activos</h2>
+    <div className="main-content inicio-page">
+      <div className="content-wrapper">
+        <div className="page-header">
+          <h1>El resto de la 5</h1>
+          <p className="subtitle">Pedidos Activos</p>
+        </div>
 
-      {tipo === 1 || tipo === 4 && (
-        <Link to="/nuevo-pedido" style={{ display: 'inline-block', marginBottom: 10 }}>
-          Crear nuevo pedido
-        </Link>
-      )}
+        <div className="action-bar">
+          {(tipo === 1 || tipo === 4) && (
+            <Link to="/nuevo-pedido" className="btn">
+              Crear nuevo pedido
+            </Link>
+          )}
+        </div>
 
-      {pedidos.length === 0 ? (
-        <p>No hay pedidos activos</p>
-      ) : (
-        pedidos.map(p => (
-          <div key={p.id} style={{ border: '1px solid #ccc', marginBottom: 10, padding: 10 }}>
-            <h3>Mesa {p.mesa}</h3>
-            <p><strong>Estado: </strong>
-              {p.enproceso === false && p.terminado === false ? 
-                'Sin preparar' 
-              : 
-                (p.enproceso === true && p.terminado === false ?
-                'Cocinando'
-              :
-                (p.enproceso === true && p.terminado === true ?
-                'Listo para Entregar' : '...'
-              ))}
-            </p>
-            <p><strong>Prioridad:</strong> {p.prioridad}</p>
-            <p><strong>Total:</strong> ${p.total}</p>
-            <h4>Items:</h4>
-            <ul>
-              {p.items.map((i, idx) => (
-                <li key={idx}>
-                  {i.nombre} - {i.cantidad} × ${i.precioplatillo} = ${i.total}
-                </li>
-              ))}
-            </ul>
-            {tipo === 2 || tipo === 4 && p.enproceso === false && (
-              <button onClick={() => procesarPedido(p.id)}>Marcar como Procesando</button>
-            )}
-            {tipo === 2 || tipo === 4 && p.terminado === false && p.enproceso === true && (
-              <button onClick={() => terminarPedido(p.id)}>Marcar como Terminado</button>
-            )}
-            {tipo === 1 || tipo === 4 && p.terminado == true && (
-              <button onClick={() => completarPedido(p.id)}>Marcar como Entregado</button>
-            )}
+        {pedidos.length === 0 ? (
+          <div className="empty-state">
+            <p>No hay pedidos activos</p>
           </div>
-        ))
-      )}
+        ) : (
+          <div className="pedidos-grid">
+            {pedidos.map(p => (
+              <div key={p.id} className="pedido-card">
+                <div className="pedido-header">
+                  <h3>Mesa {p.mesa}</h3>
+                  {getEstadoBadge(p.enproceso, p.terminado)}
+                </div>
+                
+                <div className="pedido-info">
+                  <p>
+                    <strong>Prioridad:</strong>
+                    <span>{p.prioridad === 1 ? 'Normal' : 'Alta'}</span>
+                  </p>
+                </div>
+
+                {p.items && p.items.length > 0 && (
+                  <div className="pedido-items">
+                    <ul>
+                      {p.items.map((i, idx) => (
+                        <li key={idx}>
+                          {i.nombre} x{i.cantidad} - ${i.total}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="pedido-total">Total: ${p.total}</div>
+
+                <div className="pedido-actions">
+                  {(tipo === 2 || tipo === 4) && p.enproceso === false && (
+                    <button onClick={() => procesarPedido(p.id)}>Procesando</button>
+                  )}
+                  {(tipo === 2 || tipo === 4) && p.terminado === false && p.enproceso === true && (
+                    <button onClick={() => terminarPedido(p.id)}>Terminado</button>
+                  )}
+                  {(tipo === 1 || tipo === 4) && p.terminado === true && (
+                    <button onClick={() => completarPedido(p.id)}>Entregado</button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

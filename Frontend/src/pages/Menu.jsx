@@ -5,6 +5,7 @@ function Menu()
 {
   const [platillos, setPlatillos] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [busqueda, setBusqueda] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,36 +21,54 @@ function Menu()
       });
   }, []);
 
+  const platillosFiltrados = platillos.filter(p => 
+    p.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   if (cargando) {
-    return <p style={{ textAlign: 'center' }}>Cargando platillos...</p>;
+    return <div className="sidebar loading"><p>Cargando platillos...</p></div>;
   }
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Menu</h2>
+    <div className="sidebar">
+      <h1>EL RESTO DE LA 5</h1>
+      
+      <div className="search-box">
+        <input 
+          type="text" 
+          placeholder="Buscar platillos"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+      </div>
 
-      {platillos.length === 0 ? (
-        <p>No hay platillos disponibles.</p>
-      ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
-          {platillos.map(p => (
-            <div
-              key={p.id}
-              style={{
-                border: '1px solid #ccc',
-                borderRadius: '10px',
-                padding: '15px',
-                backgroundColor: '#f8f8f8',
-                boxShadow: '2px 2px 5px rgba(0,0,0,0.1)',
-              }}
-            >
-              <h3 style={{ marginBottom: '10px' }}>{p.nombre}</h3>
-              <p><strong>Precio:</strong> ${p.precio}</p>
-              <p style={{ fontStyle: 'italic', color: '#555' }}>{p.descripcion}</p>
+      <div className="sidebar-section">
+        <h3>- MENÚ DEL DÍA -</h3>
+        {platillosFiltrados.slice(0, 3).map(p => (
+          <div key={p.id} className="menu-item">
+            <div className="menu-item-content">
+              <div className="menu-item-name">{p.nombre}</div>
+              <div className="menu-item-price">${p.precio}</div>
+              <div className="menu-item-desc">{p.descripcion}</div>
             </div>
-          ))}
-        </div>
-      )}
+            <div className="menu-item-placeholder"></div>
+          </div>
+        ))}
+      </div>
+
+      <div className="sidebar-section">
+        <h3>- TRAGOS -</h3>
+        {platillosFiltrados.slice(3, 6).map(p => (
+          <div key={p.id} className="menu-item">
+            <div className="menu-item-content">
+              <div className="menu-item-name">{p.nombre}</div>
+              <div className="menu-item-price">${p.precio}</div>
+              <div className="menu-item-desc">{p.descripcion}</div>
+            </div>
+            <div className="menu-item-placeholder"></div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
