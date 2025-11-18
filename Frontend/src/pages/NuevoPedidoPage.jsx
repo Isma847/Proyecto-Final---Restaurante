@@ -48,11 +48,9 @@ function NuevoPedidoPage() {
     });
 
     const data = await res.json();
-    if (data.ok) {
-      alert('Pedido enviado correctamente');
+    if(data.ok) 
+    {
       navigate('/inicio');
-    } else {
-      alert('Error al enviar el pedido');
     }
   };
 

@@ -28,7 +28,6 @@ function MainPage() {
 
   async function procesarPedido(pedidoId)
   {
-    if (!window.confirm('¿Marcar este pedido como en proceso?')) return;
     await fetch('http://localhost:3000/procesarpedido', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -39,7 +38,6 @@ function MainPage() {
 
   async function terminarPedido(pedidoId)
   {
-    if (!window.confirm('¿Marcar este pedido como terminado?')) return;
     await fetch('http://localhost:3000/terminarpedido', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -50,7 +48,6 @@ function MainPage() {
 
   async function completarPedido(pedidoId)
   {
-    if (!window.confirm('¿Marcar este pedido como entregado?')) return;
     await fetch('http://localhost:3000/completepedido', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -61,11 +58,11 @@ function MainPage() {
 
   const getEstadoBadge = (enproceso, terminado) => {
     if (enproceso === false && terminado === false) {
-      return <span className="estado-badge ocupada">Ocupada</span>;
+      return <span className="estado-badge ocupada" style={{textAlign: 'center'}}>Pendiente</span>;
     } else if (enproceso === true && terminado === false) {
-      return <span className="estado-badge desocupada">Cocinando</span>;
+      return <span className="estado-badge desocupada" style={{textAlign: 'center'}}>Cocinando</span>;
     } else if (enproceso === true && terminado === true) {
-      return <span className="estado-badge desocupada">Listo</span>;
+      return <span className="estado-badge desocupada" style={{textAlign: 'center'}}>Listo para Entregar</span>;
     }
   };
 
@@ -100,7 +97,7 @@ function MainPage() {
                 
                 <div className="pedido-info">
                   <p>
-                    <strong>Prioridad:</strong>
+                    <strong>Prioridad: </strong>
                     <span>{p.prioridad === 1 ? 'Normal' : 'Alta'}</span>
                   </p>
                 </div>
@@ -121,13 +118,13 @@ function MainPage() {
 
                 <div className="pedido-actions">
                   {(tipo === 2 || tipo === 4) && p.enproceso === false && (
-                    <button onClick={() => procesarPedido(p.id)}>Procesando</button>
+                    <button onClick={() => procesarPedido(p.id)}>Marcar como Cocinando</button>
                   )}
                   {(tipo === 2 || tipo === 4) && p.terminado === false && p.enproceso === true && (
-                    <button onClick={() => terminarPedido(p.id)}>Terminado</button>
+                    <button onClick={() => terminarPedido(p.id)}>Marcar como Terminado</button>
                   )}
                   {(tipo === 1 || tipo === 4) && p.terminado === true && (
-                    <button onClick={() => completarPedido(p.id)}>Entregado</button>
+                    <button onClick={() => completarPedido(p.id)}>Marcar como Entregado</button>
                   )}
                 </div>
               </div>
